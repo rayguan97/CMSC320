@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 import pandas as pd
 import requests
-import time
 import re
 import json
 
@@ -17,7 +16,7 @@ def get_movies(year):
   soup = BeautifulSoup(movies_html, 'html.parser')
   movies = soup.findAll('a', {'href': re.compile('adv_li_i$')})
 
-  return ['http://www.imdb.com' + m['href'] for m in movies]
+  return [root + m['href'] for m in movies]
 
 def go_to_movie(url):
   movie_html = requests.get(url, headers=headers).content
@@ -76,7 +75,7 @@ def scrap_details(soup, search_year):
 		if companies_url:
 			companies = ','.join([ u for u in [ get_company(root+c_url) for c_url in companies_url ] if u != ''])
 		else:
-			companies = 'Not specified'
+			companies = 'Personal'
 	except TypeError:
 		if js['creator']['@type'] == 'Organization':
 			companies = get_company(root+js['creator']['url'])
@@ -114,10 +113,6 @@ def scrap_details(soup, search_year):
 
 
 
-
-def write_csv(data):
-  df = pd.DataFrame(data)
-  df.to_csv('movies_new.csv', mode='a', index=False)
 
 
 def main():

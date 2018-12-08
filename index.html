@@ -11776,8 +11776,9 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src="Movie1.jpg"></p>
-<p><h1><center> The Revenue of a Movie </center></h1></p>
-<h4> Author:  Tianrui Guan, Xuejing Wang, Kaiyin Li </h4>
+<p><h1 style="line-height:15px;"><center> Movie Industy and Gross Profit of a Movie </center></h1></p>
+<p><h3 style="line-height:5px;"> Author:  Tianrui Guan, Xuejing Wang, Kaiyin Li </h3></p>
+<h6 style="line-height:1px;"> Published: Dec 8, 2018 </h6>
 </div>
 </div>
 </div>
@@ -11785,7 +11786,594 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1> Where the idea came from? </h1><p> You tell me. </p>
+<h2>Table of Contents</h2><ol style="font-size:115%;line-height:25px;">
+    <li>
+        <strong>Introduction</strong>
+        <ul>
+            <li>Background and Motivation</li>
+            <li>About data</li>
+            <li>Relevant information</li><br>
+        </ul>
+    </li>
+    <li>
+        <strong>Data Scraping</strong>       
+    </li>
+    <li>
+        <strong>Data Wrangling</strong>
+        <ul>
+            <li>Data Cleaning</li>
+            <li>Missing data and Imputation</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Data Visualization</strong>
+        <ul>
+            <li>Distrubution 1</li>
+            <li>Distrubution 2</li>
+            <li>Distrubution 3</li>
+            <li> ... </li><br>
+        </ul>
+    </li>
+    <li>
+        <strong>Cluster Analysis(T test)</strong>
+        <ul>
+            <li>Cluster 1</li>
+            <li>Cluster 2</li>
+            <li>Cluster 3</li>
+            <li> ... </li><br>
+        </ul>
+    </li>
+    <li>
+        <strong>Prediction</strong>
+        <ul>
+            <li>Prediction of gross profit of a movie</li>
+            <li>Prediction of gross profit of a movie company</li>
+            <li>Cluster 3</li>
+            <li> ... </li><br>
+        </ul>
+    </li>
+    <li>
+        <strong>Conclusions</strong>
+        <ul>
+            <li> Summary </li>
+            <li> Other Problems </li><br>
+        </ul>
+    </li>
+    <li>
+        <strong>appendix</strong>
+        <ul>
+            <li>Relevent resources</li>
+            <li>Sources files</li><br>
+        </ul>
+    </li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="1.-Introduction">1. Introduction<a class="anchor-link" href="#1.-Introduction">&#182;</a></h2><h3 id="Background-and-Motivations">Background and Motivations<a class="anchor-link" href="#Background-and-Motivations">&#182;</a></h3><p>From the exploration of data in previous projects, we realize how much we can learn from data and make conclusions from analized data. So we want to discuss something what is relavent to everyone, regardless of their interests. Entertainment is relavent to everyone's life, so we decided to explore data about it. At the same time, considering the accuracy of the data from the internet, it is hard to obtain accurate and relatively unbiased data from any websites about entertainment. After browsing many websites and sources, we targeted at Internet Movie Database (<a href="https://www.imdb.com/">IMDb</a>). IMDb is an online database of information related to films, television programs, home videos and video games. According to wikipedia, IMDb has approximately 5.3 million titles (including episodes) as well as 83 million registered users before Octoer 2018. Because of the authority and completeness of IMDb, we decided to scrap data on the website, analyze the layout of the moive industry globally and try to make some prediction about an incoming movie.</p>
+<h3 id="About-data">About data<a class="anchor-link" href="#About-data">&#182;</a></h3><p>The data was scrapped from <a href="https://www.imdb.com/">IMDb</a>. In the raw data, there are 7260 data points, including all of the movies from 1986 to 2018. Each movie has 13 attributes as following:</p>
+<ul style="line-height:25px;">
+    <li>Name: name of the movie</li>
+    <li>Year: year of release</li>
+    <li>Released: specific date of release</li>
+    <li>Genre: categories</li>
+    <li>Rating: content rating(some details)<br>
+         <ul>
+             <li>G: General Audiences</li>
+             <li>PG: Parental Guidance Suggested</li>
+             <li>PG-13: Special Guidance for Children Under 13</li>
+             <li>R: Accompanying of parent Under 17</li>
+             <li>Others: TV-PG, TV-14, TV-MA and NC-17</li>
+        </ul>
+    </li>
+    <li>Runtime: the length of the movie(in minutes)</li>
+    <li>Score: the score of the movie, from 0 to 10</li>
+    <li>Votes: the number of comments made regarding the movie</li>
+    <li>Companies: list of companies involved in the production</li>
+    <li>Country: the country that produced the movie</li>
+    <li>Language: the language used in the movie</li>
+    <li>Budget: budget of a movie</li>
+    <li>Gross: the profit of a movie, which is revenue minus the cost</li>
+</ul><p>Due to the fact that the data is huge, we scrapped it in the script and stored it in the csv file. But we also put our scrapping code in the notebook.</p>
+<h3 id="Relevant-information">Relevant information<a class="anchor-link" href="#Relevant-information">&#182;</a></h3><p>The idea was inspired by a <a href="https://www.kaggle.com/danielgrijalvas/movies">dataset</a> from kaggle about Movie Industry. But their data was out of date (with movies only before 2016) and some of the information was not captured (for some features like company and genre, only one of them was scrapped). Therefore, we decided to write the scrapping code and create our own dataset. We deleted and added a few columns that are relevant to our discussion, made sure that we included all informations we want, and added data from 2017 to 2018.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="2.-Data-Scraping">2. Data Scraping<a class="anchor-link" href="#2.-Data-Scraping">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>From <a href="https://www.imdb.com/">IMDb</a>, we scrapped 7260 movie information. First, there are some necessary import and some helper function:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import necessary code for scrapping.</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="k">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">json</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># home page of IMDb</span>
+<span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;http://www.imdb.com&#39;</span>
+<span class="c1"># format of the urls we are interested, passing in different years.</span>
+<span class="n">url</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;http://www.imdb.com/search/title?count=220&amp;view=simple&#39;</span>
+    <span class="s1">&#39;&amp;boxoffice_gross_us=1,&amp;title_type=feature&amp;release_date=</span><span class="si">{year}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="c1"># http header sent with the quests</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Accept-Language&#39;</span><span class="p">:</span> <span class="s1">&#39;en-US&#39;</span><span class="p">}</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># some useful functions:</span>
+
+<span class="c1"># this function pass in a year as int, </span>
+<span class="c1"># and return a list of urls movies released in that year.</span>
+<span class="k">def</span> <span class="nf">get_movies</span><span class="p">(</span><span class="n">year</span><span class="p">):</span>
+    <span class="c1"># request pages on that year.</span>
+    <span class="n">movies_html</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">year</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
+    <span class="c1"># use beautiful soup to parse the page requested</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">movies_html</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+    <span class="c1"># find all of the links in the webpage regarding a movie</span>
+    <span class="n">movies</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;href&#39;</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;adv_li_i$&#39;</span><span class="p">)})</span>
+    <span class="c1"># return a list of urls of this year.</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">root</span> <span class="o">+</span> <span class="n">m</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">movies</span><span class="p">]</span>
+
+<span class="c1"># pass in a full url about a movie, </span>
+<span class="c1"># and reutrn the content requested before parsed</span>
+<span class="k">def</span> <span class="nf">go_to_movie</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">movie_html</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
+    <span class="k">return</span> <span class="n">movie_html</span>
+
+<span class="c1"># pass in a full url about a production company, </span>
+<span class="c1"># and return the name of the company in string.</span>
+<span class="c1"># if the page is corrupted, or the connection has timeout,</span>
+<span class="c1"># return empty string</span>
+<span class="k">def</span> <span class="nf">get_company</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="c1"># Due to internet issue, we try multiple times when we failed. </span>
+    <span class="c1"># (it happened and I&#39;ll have to parse the whole year again. </span>
+    <span class="c1"># To reduce the chances of failure, try many times before gave up)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+        <span class="c1"># This is one of 7000 cases where the link doesn&#39;t work, </span>
+        <span class="c1"># so just return empty string</span>
+        <span class="k">if</span> <span class="s1">&#39;/company/co0677497/&#39;</span> <span class="ow">in</span> <span class="n">url</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># scrap the name of the company</span>
+            <span class="n">html</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
+            <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+            <span class="n">company</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;meta&quot;</span><span class="p">,</span>  <span class="nb">property</span><span class="o">=</span><span class="s2">&quot;og:title&quot;</span><span class="p">)[</span><span class="s1">&#39;content&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;With&#39;</span><span class="p">,</span> <span class="s1">&#39;(&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">company</span>
+        <span class="c1"># catch connection error, and give up after five times.</span>
+        <span class="k">except</span> <span class="ne">ConnectionError</span><span class="p">:</span>
+            <span class="k">continue</span><span class="p">;</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+
+<span class="c1"># append a list of data into the file without index</span>
+<span class="k">def</span> <span class="nf">write_csv</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="c1"># we stored the data in the file called movies_new.csv</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;movies_new.csv&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This is the page where we do most of the work for a movie.</span>
+<span class="c1"># we pass in a beautifulsoup object regarding a movie after</span>
+<span class="c1"># parsed by a html parser, as well as the current year we are parsing,</span>
+<span class="c1"># in case of we can not find year information in the webpage</span>
+<span class="k">def</span> <span class="nf">scrap_details</span><span class="p">(</span><span class="n">soup</span><span class="p">,</span> <span class="n">search_year</span><span class="p">):</span>
+    <span class="c1"># first we find a tag that includes a formatted json</span>
+    <span class="n">details</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;script&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;application/ld+json&quot;</span><span class="p">)</span>
+    <span class="n">js</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">details</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    
+    <span class="c1"># access name and genre fields</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">js</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+    <span class="n">genre</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">js</span><span class="p">[</span><span class="s1">&#39;genre&#39;</span><span class="p">])</span>
+
+    <span class="c1"># The content rating of a movie,</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">rating</span> <span class="o">=</span> <span class="n">js</span><span class="p">[</span><span class="s1">&#39;contentRating&#39;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="c1"># if it is not given, use &#39;Not specified&#39;.</span>
+        <span class="n">rating</span> <span class="o">=</span> <span class="s1">&#39;Not specified&#39;</span>
+        
+    <span class="c1"># find duration of the movie</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">runtime</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;h4&#39;</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="s1">&#39;Runtime:&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="c1"># if we can&#39;t, use another field and parse the string mannually</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+&#39;</span><span class="p">,</span> <span class="n">js</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">runtime</span> <span class="o">=</span> <span class="mi">60</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="n">runtime</span> <span class="o">=</span> <span class="mi">60</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="c1"># find the release year and date</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">year</span> <span class="o">=</span> <span class="n">js</span><span class="p">[</span><span class="s1">&#39;datePublished&#39;</span><span class="p">][:</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">released</span> <span class="o">=</span> <span class="n">js</span><span class="p">[</span><span class="s1">&#39;datePublished&#39;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="c1"># if it is not in the json format, use a string passed in </span>
+        <span class="c1"># and use &#39;Not specified&#39; on the date.</span>
+        <span class="c1"># note that sometimes the release year may differ from the year </span>
+        <span class="c1"># show up in the search page, so I use the year in the </span>
+        <span class="c1"># web search only if we can not find publish date about the movie</span>
+        <span class="n">year</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">search_year</span><span class="p">)</span>
+        <span class="n">released</span> <span class="o">=</span> <span class="s1">&#39;Not specified&#39;</span>
+
+    <span class="c1"># the rating of the movie and how many comments it has</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">js</span><span class="p">[</span><span class="s1">&#39;aggregateRating&#39;</span><span class="p">][</span><span class="s1">&#39;ratingValue&#39;</span><span class="p">])</span>
+    <span class="n">votes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">js</span><span class="p">[</span><span class="s1">&#39;aggregateRating&#39;</span><span class="p">][</span><span class="s1">&#39;ratingCount&#39;</span><span class="p">])</span>
+    
+
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># get list of suffixes about url of a company</span>
+        <span class="n">companies_url</span> <span class="o">=</span> <span class="p">[</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">js</span><span class="p">[</span><span class="s1">&#39;creator&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;@type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Organization&#39;</span> <span class="p">]</span>
+        <span class="k">if</span> <span class="n">companies_url</span><span class="p">:</span>
+            <span class="c1"># if the list is not empty, then connect them with &#39;,&#39;,</span>
+            <span class="c1"># use get_company and store the company name (make sure to exclude empty string)</span>
+            <span class="n">companies</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span> <span class="n">u</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="p">[</span> <span class="n">get_company</span><span class="p">(</span><span class="n">root</span><span class="o">+</span><span class="n">c_url</span><span class="p">)</span> <span class="k">for</span> <span class="n">c_url</span> <span class="ow">in</span> <span class="n">companies_url</span> <span class="p">]</span> <span class="k">if</span> <span class="n">u</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># if it is empty, it means the creator is not specified, or all of the creation</span>
+            <span class="c1"># and production was done by individuals</span>
+            <span class="n">companies</span> <span class="o">=</span> <span class="s1">&#39;Personal&#39;</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="c1"># if the result was not well-formatted (specifically, when there is only one creator,</span>
+        <span class="c1"># the field was no longer a list, so just access the element directly.)</span>
+        <span class="k">if</span> <span class="n">js</span><span class="p">[</span><span class="s1">&#39;creator&#39;</span><span class="p">][</span><span class="s1">&#39;@type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Organization&#39;</span><span class="p">:</span>
+            <span class="n">companies</span> <span class="o">=</span> <span class="n">get_company</span><span class="p">(</span><span class="n">root</span><span class="o">+</span><span class="n">js</span><span class="p">[</span><span class="s1">&#39;creator&#39;</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">companies</span> <span class="o">=</span> <span class="s1">&#39;Personal&#39;</span>
+
+    <span class="c1"># locate the information about country and language in the beautifulsoup object</span>
+    <span class="n">country</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;href&#39;</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;country_of_origin&#39;</span><span class="p">)})</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">language</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">l</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;href&#39;</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;primary_language&#39;</span><span class="p">)})</span> <span class="p">)</span>
+
+    <span class="c1"># find the budget field and convert it to float</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">budget</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;h4&#39;</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="s1">&#39;Budget:&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;$&#39;</span> <span class="ow">in</span> <span class="n">budget</span><span class="p">:</span>
+            <span class="c1"># in case the field was not well formatted</span>
+            <span class="n">budget</span> <span class="o">=</span> <span class="s1">&#39;Not specified&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">budget</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">budget</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;$&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="c1"># if we can not find budget information</span>
+        <span class="n">budget</span> <span class="o">=</span> <span class="s1">&#39;Not specified&#39;</span>
+
+    <span class="c1"># find gross profit in the website, using either Cumulative Worldwide Gross</span>
+    <span class="c1"># or Gross USA, whichever is available</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">gross</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;h4&#39;</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="s1">&#39;Cumulative Worldwide Gross:&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">gross</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">gross</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;$&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">gross</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;h4&#39;</span><span class="p">,</span> <span class="n">string</span><span class="o">=</span><span class="s1">&#39;Gross USA:&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">gross</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">gross</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;$&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">gross</span> <span class="o">=</span> <span class="s1">&#39;Not specified&#39;</span>
+    <span class="c1"># return all of the data about the movie</span>
+    <span class="n">data_line</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">:</span> <span class="n">rating</span><span class="p">,</span> <span class="s1">&#39;genre&#39;</span><span class="p">:</span> <span class="n">genre</span><span class="p">,</span> <span class="s1">&#39;runtime&#39;</span><span class="p">:</span> <span class="n">runtime</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span> 
+                 <span class="s1">&#39;released&#39;</span><span class="p">:</span> <span class="n">released</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="n">score</span><span class="p">,</span> <span class="s1">&#39;votes&#39;</span><span class="p">:</span> <span class="n">votes</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">:</span> <span class="n">rating</span><span class="p">,</span> <span class="s1">&#39;companies&#39;</span><span class="p">:</span> <span class="n">companies</span><span class="p">,</span> 
+                 <span class="s1">&#39;country&#39;</span><span class="p">:</span> <span class="n">country</span><span class="p">,</span> <span class="s1">&#39;language&#39;</span><span class="p">:</span> <span class="n">language</span><span class="p">,</span> <span class="s1">&#39;budget&#39;</span><span class="p">:</span> <span class="n">budget</span><span class="p">,</span> <span class="s1">&#39;gross&#39;</span><span class="p">:</span> <span class="n">gross</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">data_line</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This is the main function in the script, to make sure it will not run,</span>
+<span class="c1"># we left it in the main function.</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># from 1986 to 2018</span>
+    <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1986</span><span class="p">,</span> <span class="mi">2019</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># get all of the urls of movies in this year</span>
+        <span class="n">movies</span> <span class="o">=</span> <span class="n">get_movies</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">movie_url</span> <span class="ow">in</span> <span class="n">movies</span><span class="p">:</span>
+            <span class="c1"># for each movie, I print out the informations for debuggging purpose</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="s1">&#39;&amp;&#39;</span><span class="p">,</span> <span class="n">movie_url</span><span class="p">)</span>
+            <span class="n">movie_data</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="c1"># get html text and use html parser to parse it</span>
+            <span class="n">movie_html</span> <span class="o">=</span> <span class="n">go_to_movie</span><span class="p">(</span><span class="n">movie_url</span><span class="p">)</span>
+            <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">movie_html</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+            
+            <span class="c1"># scrap data and put it in the yearly data.</span>
+            <span class="n">movie_data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">scrap_details</span><span class="p">(</span><span class="n">soup</span><span class="p">,</span> <span class="n">year</span><span class="p">))</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">movie_data</span><span class="p">)</span>
+        <span class="c1"># For every year, we append all of the information once to the movie and show a prompt</span>
+        <span class="c1"># Note that since we don&#39;t have an id for a movie, so there is not way</span>
+        <span class="c1"># to start where we left off when the program breaks due to a bug. </span>
+        <span class="c1"># we can only start from scratch at different years when that happened.</span>
+        <span class="n">write_csv</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="s1">&#39;done.&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note that, even if we parser our own data, we can not expect that our data is nice and clean. So we need to look at the data and clean it up for analysis.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.-Data-Wrangling">3. Data Wrangling<a class="anchor-link" href="#3.-Data-Wrangling">&#182;</a></h2><h3 id="Data-Cleaning">Data Cleaning<a class="anchor-link" href="#Data-Cleaning">&#182;</a></h3><p>At this step, we need to look at our data and clean it up. First import necessary tools:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># pandas for dataframe</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="c1"># linear algebra</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># and read in data</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Then remove some repetitive rows of features resulted from appending data each year, change string about date into datetime object and reorganize the columns.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># read the csv file</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./movies_new.csv&#39;</span><span class="p">)</span>
+<span class="c1"># When appending to the file at each yaer iteration, we repetitively added</span>
+<span class="c1"># the columns features to the data. So we need to remove those</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;name&#39;</span><span class="p">]</span>
+<span class="c1"># replace missing data with np.nan</span>
+<span class="n">data</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="s1">&#39;Unrated&#39;</span><span class="p">,</span> <span class="s1">&#39;Not Rated&#39;</span><span class="p">,</span> <span class="s1">&#39;Not specified&#39;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># converting time to datetime object</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;released_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">released</span><span class="p">)</span>
+<span class="c1"># reorganize columns</span>
+<span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;released_date&#39;</span><span class="p">,</span> <span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">,</span> <span class="s1">&#39;runtime&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;votes&#39;</span><span class="p">,</span> <span class="s1">&#39;companies&#39;</span><span class="p">,</span> <span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="s1">&#39;language&#39;</span><span class="p">,</span> <span class="s1">&#39;budget&#39;</span><span class="p">,</span> <span class="s1">&#39;gross&#39;</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">order</span><span class="p">]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[7]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>year</th>
+      <th>released_date</th>
+      <th>genre</th>
+      <th>rating</th>
+      <th>runtime</th>
+      <th>score</th>
+      <th>votes</th>
+      <th>companies</th>
+      <th>country</th>
+      <th>language</th>
+      <th>budget</th>
+      <th>gross</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Top Gun</td>
+      <td>1986</td>
+      <td>1986-05-16</td>
+      <td>Action,Drama</td>
+      <td>PG</td>
+      <td>110</td>
+      <td>6.9</td>
+      <td>254409</td>
+      <td>Paramount Pictures,Don Simpson/Jerry Bruckheim...</td>
+      <td>USA</td>
+      <td>English</td>
+      <td>15000000.0</td>
+      <td>35683060.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Aliens</td>
+      <td>1986</td>
+      <td>1986-07-18</td>
+      <td>Action,Adventure,Sci-Fi,Thriller</td>
+      <td>R</td>
+      <td>137</td>
+      <td>8.4</td>
+      <td>582947</td>
+      <td>Twentieth Century Fox,Brandywine Productions,S...</td>
+      <td>USA</td>
+      <td>English</td>
+      <td>18500000.0</td>
+      <td>13106024.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Highlander</td>
+      <td>1986</td>
+      <td>1986-03-07</td>
+      <td>Action,Adventure,Fantasy</td>
+      <td>R</td>
+      <td>116</td>
+      <td>7.2</td>
+      <td>110612</td>
+      <td>Thorn EMI Screen Entertainment,Highlander Prod...</td>
+      <td>UK</td>
+      <td>English</td>
+      <td>16000000.0</td>
+      <td>1288519.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Stand by Me</td>
+      <td>1986</td>
+      <td>1986-11-04</td>
+      <td>Adventure,Drama</td>
+      <td>R</td>
+      <td>89</td>
+      <td>8.1</td>
+      <td>324695</td>
+      <td>Columbia Pictures Corporation,Act III,Act III ...</td>
+      <td>USA</td>
+      <td>English</td>
+      <td>8000000.0</td>
+      <td>5228741.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Ferris Bueller's Day Off</td>
+      <td>1986</td>
+      <td>1986-06-11</td>
+      <td>C,o,m,e,d,y</td>
+      <td>PG-13</td>
+      <td>103</td>
+      <td>7.8</td>
+      <td>281414</td>
+      <td>Paramount Pictures</td>
+      <td>USA</td>
+      <td>English,German</td>
+      <td>6000000.0</td>
+      <td>7013636.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># see how many percent each feature are missing</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Missing-data-and-Imputation">Missing data and Imputation<a class="anchor-link" href="#Missing-data-and-Imputation">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -11799,17 +12387,10 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import necessary tools</span>
-
-<span class="c1"># pandas for dataframe</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="c1"># linear algebra</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="c1"># for data analysis</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># for data analysis</span>
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">preprocessing</span>
 <span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">datasets</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">stats</span>
@@ -11817,6 +12398,25 @@ div#notebook {
 <span class="c1"># for data visualisation</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># note that: see companies: Personal &amp; Not specified.</span>
+<span class="c1"># temp = [d for d in data.released if &#39;-&#39; not in d]</span>
+<span class="c1"># temp</span>
+<span class="c1"># data.set_index(&#39;name&#39;)</span>
+<span class="c1"># data[data.duplicated()]</span>
+
+<span class="c1"># data.drop_duplicates(subset=&#39;released&#39;)</span>
 </pre></div>
 
 </div>
