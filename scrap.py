@@ -27,6 +27,8 @@ def go_to_movie(url):
 
 def get_company(url):
 	for i in range(5):
+		if '/company/co0677497/' in url:
+			return ''
 		try:
 			html = requests.get(url, headers=headers).content
 			soup = BeautifulSoup(html, 'html.parser')
@@ -96,11 +98,11 @@ def scrap_details(soup, search_year):
 	try:
 		gross = soup.find('h4', string='Cumulative Worldwide Gross:').parent.contents[2].strip()[:-1]
 		gross = float(gross.replace('$','').replace(',',''))
-	except AttributeError:
+	except (AttributeError, ValueError):
 		try:
 			gross = soup.find('h4', string='Gross USA:').parent.contents[2].strip()[:-1]
 			gross = float(gross.replace('$','').replace(',',''))
-		except AttributeError:
+		except (AttributeError, ValueError):
 			gross = 'Not specified'
 
 
@@ -119,9 +121,8 @@ def write_csv(data):
 
 
 def main():
-	# in range 1986 to 2018
-	# Done: 1997
-  for year in range(1998, 2019):
+	# from 1986 to 2018
+  for year in range(1986, 2019):
   	data = []
   	movies = get_movies(year)
 

@@ -8,7 +8,7 @@ import json
 root = 'http://www.imdb.com'
 
 headers = {'Accept-Language': 'en-US'}
-url = 'http://www.imdb.com/title/tt0093891/?ref_=adv_li_i'
+url = 'http://www.imdb.com/title/tt4645330/?ref_=adv_li_i'
 
 
 def get_company(url):
@@ -25,15 +25,11 @@ genre = soup.find("script", type="application/ld+json")
 
 js = json.loads(genre.text)
 
-try:
-	year = js['datePublished'][:4]
-	released = js['datePublished']
-except KeyError:
-	year = str(1990)
-	released = 'Not specified'
+companies_url = [ c['url'] for c in js['creator'] if c['@type'] == 'Organization' ]
+# test = get_company(root+companies_url[0])
 
-print(year)
-print(released)
+print(companies_url[1])
+print(js['creator'])
 
 
 
