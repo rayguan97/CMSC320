@@ -44,7 +44,10 @@ def scrap_details(soup, search_year):
 	details = soup.find("script", type="application/ld+json")
 	js = json.loads(details.text)
 	name = js['name']
-	genre = ','.join(js['genre'])
+	if isinstance(js['genre'], str):
+		genre = js['genre']
+	else:
+		genre = ','.join(js['genre'])
 
 	try:
 		runtime = int(soup.find('h4', string='Runtime:').parent.contents[3].text[:-3].strip())
